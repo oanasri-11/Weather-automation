@@ -1,0 +1,105 @@
+{
+  "name": "My workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {}
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        0,
+        0
+      ],
+      "id": "a18e2250-d16d-4391-96f5-01f5d78cfccf",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "format": "imperial",
+        "cityName": "Algeria",
+        "language": "en"
+      },
+      "type": "n8n-nodes-base.openWeatherMap",
+      "typeVersion": 1,
+      "position": [
+        208,
+        0
+      ],
+      "id": "7d5b99ea-e925-4253-b9f7-3eb9c1b5de0a",
+      "name": "OpenWeatherMap",
+      "credentials": {
+        "openWeatherMapApi": {
+          "id": "M022Xxc1nJxTqmDC",
+          "name": "OpenWeatherMap account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "abderrahmeneabderrahmene501@gmail.com",
+        "subject": "Weather INFO",
+        "message": "=Good Morning,Here is the current temperature is {{ $json.main.temp }} in {{ $json.name }}with a temperature range of {{ $json.main.temp_min }} to {{ $json.main.temp_max }} and wind speed of {{ $json.wind.speed }}",
+        "options": {
+          "appendAttribution": true
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        416,
+        0
+      ],
+      "id": "11a844e3-7632-4073-ad60-05a14c3e2ede",
+      "name": "Send a message",
+      "webhookId": "4b509c0b-9290-46d0-a71a-756a96a3e01d",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "R6Lvh4L2vtXcbqx5",
+          "name": "Gmail OAuth2 API"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "OpenWeatherMap",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenWeatherMap": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "34de9d5f-7bc2-439e-881e-d8d967c4e593",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "3357f97139fba5badbe0080a88bcf75e2eb3788c9e4ddbf7088fde311ffe6e99"
+  },
+  "id": "itSXR77B7lOUCuOO",
+  "tags": []
+}
